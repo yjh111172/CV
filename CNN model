@@ -1,0 +1,33 @@
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
+from tensorflow.keras.optimizers import Adam
+
+# CNN 모델 구축
+model = Sequential()
+
+# 1번째 컨볼루션 층
+model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(IMG_SIZE, IMG_SIZE, 3)))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+
+# 2번째 컨볼루션 층
+model.add(Conv2D(64, (3, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+
+# 3번째 컨볼루션 층
+model.add(Conv2D(128, (3, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+
+# 플래튼 층
+model.add(Flatten())
+
+# Fully Connected Layer
+model.add(Dense(128, activation='relu'))
+model.add(Dropout(0.5))  # Dropout을 통해 과적합 방지
+
+# 출력층 (클래스 개수만큼 출력)
+model.add(Dense(43, activation='softmax'))  # GTSRB 데이터셋은 43개의 클래스
+
+# 모델 컴파일
+model.compile(optimizer=Adam(), loss='categorical_crossentropy', metrics=['accuracy'])
+
+model.summary()
