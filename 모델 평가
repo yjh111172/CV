@@ -1,0 +1,25 @@
+from sklearn.metrics import classification_report, confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# 모델 평가
+score = model.evaluate(X_test, y_test)
+print("Test Loss:", score[0])
+print("Test Accuracy:", score[1])
+
+# 예측 결과
+y_pred = model.predict(X_test)
+y_pred_classes = np.argmax(y_pred, axis=1)
+y_true = np.argmax(y_test, axis=1)
+
+# 혼동 행렬
+cm = confusion_matrix(y_true, y_pred_classes)
+plt.figure(figsize=(10, 7))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=np.arange(43), yticklabels=np.arange(43))
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.title('Confusion Matrix')
+plt.show()
+
+# 분류 성능 리포트
+print(classification_report(y_true, y_pred_classes))
