@@ -1,0 +1,18 @@
+# 데이터 증강 (훈련 데이터에 적용)
+train_datagen = ImageDataGenerator(
+    rotation_range=30,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    shear_range=0.2,
+    zoom_range=0.2,
+    horizontal_flip=True,
+    fill_mode='nearest'
+)
+
+train_datagen.fit(X_train)
+
+# 모델 학습
+history = model.fit(train_datagen.flow(X_train, y_train, batch_size=32),
+                    steps_per_epoch=len(X_train) // 32,
+                    epochs=10,
+                    validation_data=(X_test, y_test))
