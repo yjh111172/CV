@@ -97,7 +97,8 @@
 
 ## 4.1 학습용 전처리
 
-```train_transform = transforms.Compose([
+```
+train_transform = transforms.Compose([
     transforms.Resize((64, 64)),
     transforms.RandomRotation(10),
     transforms.ColorJitter(brightness=0.3, contrast=0.3),
@@ -108,7 +109,8 @@
 ```
 
 ## 4.2 테스트용 전처리
-```test_transform = transforms.Compose([
+```
+test_transform = transforms.Compose([
     transforms.Resize((64, 64)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.5]*3, std=[0.5]*3)
@@ -123,7 +125,8 @@
 
 ## 5.1 모델 정의
 
-```model = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
+```
+model = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
 in_features = model.fc.in_features
 model.fc = nn.Linear(in_features, 43)
 
@@ -133,12 +136,14 @@ model.fc = nn.Linear(in_features, 43)
 # 6. 모델 학습 과정
 해당 단계는 교통 표지판 이미지로부터 유효한 특징을 스스로 추출하도록 만들기 위한 절차이며,GTSRB 데이터셋은 조명·회전·거리 등 다양한 변형이 존재해서 모델이 이러한 변화를 견디도록 충분한 학습이 필수적이라고 생각합니다.
 ## 6.1 학습 설정
-```criterion = nn.CrossEntropyLoss()
+```
+criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 ```
 
 ## 6.2 학습 반복
-```for images, labels in train_loader:
+```
+for images, labels in train_loader:
     optimizer.zero_grad()
     outputs = model(images)
     loss = criterion(outputs, labels)
