@@ -234,4 +234,4 @@ PyTorch
 
 OpenCV
 
-ResNet 논문(He et al., 2015)
+ResNet
